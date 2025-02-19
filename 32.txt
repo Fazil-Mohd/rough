@@ -1,0 +1,46 @@
+-- 
+-- Roll No: 32
+-- Name: muhammed fazil  c
+-- Program: 
+-- 
+
+
+--
+-- Table structure for table books
+--
+
+create table books (bookid int primary key,title varchar(100) not NULL,author varchar(50) not NULL,price decimal(6,2) Default 0.00);
+alter table books add column publication_date date;
+alter table books modify price decimal(6,2) default 100.00;
+alter table books drop column publication_date;
+
+--
+-- Table structure for table students
+--
+
+create table students (studentid int primary key,name varchar(100) not NULL,course varchar(50) not NULL,age int,check(age>20 and age <40));
+drop table students;
+
+--
+-- Dumping data for table books
+--
+
+insert into books values (1,"Operating Systems Concepts","Silaberschatz",650,"1960-11-20");
+insert into books values (2,"Operating Systems Concepts","Silaberschatz",650,"1960-11-20");
+insert into books values (3,"Computer Networks","Andrew S. Tanenbaum",700,"2000-02-17");
+update books set price = 700 where title = "Operating Systems Concepts";
+delete from books where bookid = 3;
+update books set price = price*1.10;
+
+--
+-- Dumping data for table students
+--
+
+insert into students values(101,'Midhun K','MCA',22),(102,'Ann Mariya','MCA',30),(103,'Sidharth M','MCA',21);
+
+--
+-- SQl Query Statements
+--
+
+-- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
+-- -----Question number should be commented---------------#This line may be removed in the actual file
