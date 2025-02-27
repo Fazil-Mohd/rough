@@ -1,0 +1,27 @@
+package MODULE1;
+
+public class CPU {
+	double price;
+	class professor{
+		double cores;
+		String manufacturer;
+		double getCache ( ) {
+			return 4.3;
+		}
+	}
+	static class RAM {
+				 double memory;
+				 String manufacturer;
+				 double getClockedSpeed() {
+				 return 5.5; }}}
+
+public class CPUDetails {
+	public static void main(String[] args) {
+		CPU cpu =new CPU();
+		CPU.professor processor = new CPU.professor() ;
+		CPU.RAM ram = new CPU.RAM() ;
+		System.out.println("Processor Cache = " + processor.getCache());
+		System.out.println("RAM Clock Speed = " + ram.getClockedSpeed());
+		
+	}
+}
