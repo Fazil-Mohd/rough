@@ -1,0 +1,7 @@
+
+select * from department,students where department.dno=students.dno;
+
+insert into bookissue (bookid,studentid,issue_date,return_date) values  (1,101,'2025-03-01','2025-03-15'), (2,102,'2025-03-01','2025-03-15'),
+(3,103,'2025-03-01','2025-03-15'), (3,104,'2025-03-01','2025-03-15'),
+(5,104,'2025-03-01','2025-03-15');
+
