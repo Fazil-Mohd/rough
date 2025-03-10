@@ -1,0 +1,38 @@
+package MODULE1;
+
+public class Employee {
+	int eNo,eSalary;
+	String eName;
+	public Employee() {}
+	public Employee(int no,int sal,String name) {
+		eNo = no;
+		eSalary = sal;
+		eName = name;
+	}
+	public void showData() {
+		System.out.print("EmpId ="+eNo+" "+ "Name"+" "+"Salary ="+eSalary);
+		System.out.println();
+	}
+}
+
+import java.util.Scanner;
+public class EmpArrObjects {
+	public static void main(String[] args) {
+		System.out.println("Enter number of Employees:");
+		Scanner sc = new Scanner (System.in);
+		int n = sc.nextInt();
+		System.out.println("Enter Employee details one b one:");
+		Employee employees [] = new Employee [n];
+		Scanner scemp = new Scanner (System.in);
+		int eid ,esal;
+		String enam;
+		for (int i = 0;i<n ;i++) {
+			System.out.println("Enter "+i+"employee Details..");
+			System.out.println("Enter Employee id (integer):");
+			eid = scemp.nextInt();
+			System.out.println("Enter Employee name (String):");
+			tring 
+			System.out.println("Enter Employee id (integer):");
+		}
+	}
+}
