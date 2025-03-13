@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Set terminal size
+cols=$(tput cols)
+lines=$(tput lines)
+
+# Clear the screen
+clear
+
+# Hide cursor
+tput civis
+
+# Function to generate random characters
+generate_rain() {
+    chars=({A..Z} {a..z} {0..9} '!' '@' '#' '$' '%' '&' '*')
+    echo -n "${chars[$RANDOM % ${#chars[@]}]}"
+}
+
+# Infinite loop for animation
+while true; do
+    # Print the "hacking" message in the middle
+    tput cup $((lines / 2)) $(( (cols - 40) / 2 ))
+    echo -e "\e[1;31mHacking GitHub account of niyaspa...\e[0m"
+
+    # Generate Matrix rain effect
+    for ((i = 0; i < cols; i+=2)); do
+        tput cup $((RANDOM % lines)) $i
+        echo -ne "\e[32m$(generate_rain)\e[0m"
+    done
+
+    # Small delay for animation effect
+    sleep 0.05
+done
