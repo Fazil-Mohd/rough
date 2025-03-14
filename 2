@@ -1,0 +1,102 @@
+CREATE TABLE departments ( dno INT PRIMARY KEY,dname VARCHAR(50) NOT NULL );
+
+
+CREATE TABLE bookissues (bookid INT,studentid INT,issue_date DATE,return_date DATE,fine DECIMAL(5,2) DEFAULT 0.00);
+
+ALTER TABLE students DROP COLUMN course;
+ALTER TABLE students  ADD COLUMN dno INT;
+ALTER TABLE students ADD CONSTRAINT fk_students_department FOREIGN KEY (dno) REFERENCES departments(dno);
+
+
+ALTER TABLE bookissues ADD CONSTRAINT pk_bookissues PRIMARY KEY (bookid, studentid);
+ALTER TABLE bookissues ADD CONSTRAINT fk_bookissues_books FOREIGN KEY (bookid) REFERENCES books(bookid);
+ALTER TABLE bookissues ADD CONSTRAINT fk_bookissues_students FOREIGN KEY (studentid) REFERENCES students(studentid);
+
+
+
+
+
+INSERT INTO bookissues (bookid, studentid, issue_date, return_date, fine) VALUES (2, 101, '2025-02-10', NULL, 0.00),(1, 102, '2025-02-12', '2025-02-18', 0.00);
+
+
+
+
+SELECT bookissues.studentid, students.name, bookissues.bookid, books.title FROM bookissues JOIN students ON bookissues.studentid = students.studentid JOIN books ON bookissues.bookid = books.bookid;
+
+
+SELECT bookissues.studentid, students.name, bookissues.bookid, books.title FROM bookissues JOIN students ON bookissues.studentid = students.studentid JOIN books ON bookissues.bookid = books.bookid;
+
+
+
+SELECT students.studentid, students.name, departments.dname FROM students LEFT JOIN departments ON students.dno = departments.dno;
+
+
+MISSING
+
+
+
+SELECT books.bookid, books.title FROM books LEFT JOIN bookissues ON books.bookid = bookissues.bookid WHERE bookissues.bookid IS NULL;
+
+
+
+
+SELECT students.studentid, students.name FROM students LEFT JOIN bookissues ON students.studentid = bookissues.studentid WHERE bookissues.studentid IS NULL;
+
+
+
+SELECT students.studentid, students.name FROM students JOIN bookissues ON students.studentid = bookissues.studentid WHERE bookissues.return_date IS NULL;
+
+
+
+
+SELECT bookid, title FROM books WHERE price > %s ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+SELECT DISTINCT students.studentid, students.name, departments.dname, bookissues.bookid, books.title 
+FROM students JOIN bookissues ON students.studentid = bookissues.studentid JOIN books ON bookissues.bookid = books.bookid LEFT JOIN departments ON students.dno = departments.dno;
+
+--------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
