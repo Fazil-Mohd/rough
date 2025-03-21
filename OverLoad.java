@@ -1,6 +1,9 @@
 Overloading happens when you have multiple methods with the same name but different parameters (either in type or number).
 in this "area" is the method overloading
-	
+The new OverLoadDemo() part creates an instance of the OverLoadDemo class.
+The reference variable ob is now holding the reference to this object.
+Using the reference variable ob, you can now call methods of the OverLoadDemo class, such as ob.area() to calculate the area of various shapes.
+
 package MODULE2;
 import java.util.Scanner;
 class OverLoadDemo {
