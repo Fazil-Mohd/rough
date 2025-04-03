@@ -50,5 +50,43 @@ ALTER TABLE books DROP COLUMN publication_date;
 --------------------------------------
 2
 --------------------------------------
+CREATE TABLE departments (
+    dno INT PRIMARY KEY,
+    dname VARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE bookissues (
+    bookid INT,
+    studentid INT,
+    issue_date DATE,
+    return_date DATE,
+    fine DECIMAL(5,2) DEFAULT 0.00
+);
+
+
+ALTER TABLE students DROP COLUMN course;
+
+
+ALTER TABLE students ADD COLUMN dno INT;
+
+
+ALTER TABLE bookissues ADD CONSTRAINT pk_bookissues PRIMARY KEY (bookid, studentid);
+
+
+ALTER TABLE bookissues ADD CONSTRAINT bookissues_fk_bookid FOREIGN KEY (bookid) REFERENCES books(bookid);
 
   
+ALTER TABLE bookissues  ADD CONSTRAINT bookissues_fk_studentid FOREIGN KEY (studentid) REFERENCES students(studentid);
+
+
+INSERT INTO departments (dno, dname) VALUES(1, 'MCA');
+
+
+INSERT INTO bookissues (bookid, studentid, issue_date, return_date, fine) VALUES(2, 101, '2025-02-10', NULL, 0.00), (1, 102, '2025-02-12', '2025-02-18', 0.00);
+
+
+select students.studentid,students.name,bookissues.bookid,books.title from bookissues join students on students.studentid=bookissues.studentid join books on bookissues.bookid=books.bookid;
+
+
+8 muthalllll
