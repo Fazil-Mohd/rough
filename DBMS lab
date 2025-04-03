@@ -30,10 +30,7 @@ INSERT INTO books (bookid, title, author, price, publication_date) VALUES
 (4, 'Algorithms', 'Cormen', 100.00, '2011-01-23');
 
 
-INSERT INTO students (studentid, name, course, age) VALUES
-(101, 'Midhun K', 'MCA', 22),
-(102, 'Ann Mariya', 'MCA', 30),
-(103, 'Sidharth M', 'MCA', 21);
+INSERT INTO students (studentid, name, course, age) VALUES (101, 'Midhun K', 'MCA', 22),(102, 'Ann Mariya', 'MCA', 30),(103, 'Sidharth M', 'MCA', 21);
 
 
 UPDATE books SET price = 700.00 WHERE title = 'Operating System Concepts';
@@ -89,4 +86,5 @@ INSERT INTO bookissues (bookid, studentid, issue_date, return_date, fine) VALUES
 select students.studentid,students.name,bookissues.bookid,books.title from bookissues join students on students.studentid=bookissues.studentid join books on bookissues.bookid=books.bookid;
 
 
-8 muthalllll
+
+8 muthall
