@@ -1,0 +1,54 @@
+1
+  
+  
+CREATE TABLE books (
+    bookid INT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(50) NOT NULL,
+    price DECIMAL(6,2) DEFAULT 0.00
+);
+
+
+CREATE TABLE students (
+    studentid INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    course VARCHAR(50) DEFAULT 'MCA',
+    age INT CHECK (age BETWEEN 20 AND 40)
+);
+
+
+ALTER TABLE books ADD COLUMN publication_date DATE;
+
+
+ALTER TABLE books ALTER COLUMN price SET DEFAULT 100.00;
+
+
+INSERT INTO books (bookid, title, author, price, publication_date) VALUES
+(1, 'Database Systems', 'Ramez Elmasri', 500.00, '1976-10-10'),
+(2, 'Operating System Concepts', 'Silberschatz', 650.00, '1960-11-20'),
+(3, 'Computer Networks', 'Andrew S. Tanenbaum', 700.00, '2000-02-17'),
+(4, 'Algorithms', 'Cormen', 100.00, '2011-01-23');
+
+
+INSERT INTO students (studentid, name, course, age) VALUES
+(101, 'Midhun K', 'MCA', 22),
+(102, 'Ann Mariya', 'MCA', 30),
+(103, 'Sidharth M', 'MCA', 21);
+
+
+UPDATE books SET price = 700.00 WHERE title = 'Operating System Concepts';
+
+
+DELETE FROM books WHERE bookid = 3;
+
+
+UPDATE books SET price = price * 1.10;
+
+
+ALTER TABLE books DROP COLUMN publication_date;
+
+--------------------------------------
+2
+--------------------------------------
+
+  
