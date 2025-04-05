@@ -1,0 +1,23 @@
+package MODULE3;
+
+abstract class car {
+	public abstract void drive();
+	public void playMusic() {
+		System.out.println("Play Music ");
+	}
+	
+}
+class WagonR extends car{
+	public void drive() {
+		System.out.println("Driving ");
+	}
+}
+public class Demo {
+
+	public static void main(String[] args) {
+		car obj = new WagonR();
+		obj.drive();
+		obj.playMusic();
+	}
+
+}
