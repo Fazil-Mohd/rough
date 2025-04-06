@@ -86,5 +86,7 @@ INSERT INTO bookissues (bookid, studentid, issue_date, return_date, fine) VALUES
 select students.studentid,students.name,bookissues.bookid,books.title from bookissues join students on students.studentid=bookissues.studentid join books on bookissues.bookid=books.bookid;
 
 
+select students.studentid,students.name,departments.dno from students left join departments on departments.dno=students.dno;
 
-8 muthall
+
+9 muthall
