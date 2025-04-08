@@ -1,0 +1,87 @@
+-- 
+-- Roll No: 38	
+-- Name: Naheel K K
+-- Program: Assignment - I
+-- 
+
+
+--
+-- Table structure for table books
+--
+
+create table books(accno int auto_increment unique PRIMARY KEY, title varchar(100) unique not null, author varchar(50) not null, price float(6,2), type ENUM('lending','reference'), availability ENUM('yes','no'), publisherid int);
+
+alter table books add constraint books_fkey_publisherid foreign key(publisherid) references publishers(publisherid);
+
+
+--
+-- Table structure for table publishers
+--
+
+create table publishers(publisherid INT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(50) UNIQUE NOT NULL, address VARCHAR(100));
+
+--
+-- Table structure for table members
+--
+
+create table members(memberid int AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50) NOT NULL, address VARCHAR(100), type ENUM('staff','student'));
+
+--
+-- Table structure for table issues
+--
+
+create table issues(issueid int AUTO_INCREMENT primary key, memberid int, accno int, issuedate date, duedate date);
+
+alter table issues add constraint issues_fkey_accno foreign key(accno) references books(accno);
+
+ alter table issues add constraint issues_fkey_memberid foreign key(memberid) references members(memberid);
+
+--
+-- Table structure for table returns
+--
+
+create table returns(returnid int auto_increment primary key, memberid int , accno int, returndate date, fine int default 0 CHECK(fine >= 0));
+
+alter table returns add constraint returns_fkey_memberid foreign key(memberid) references members(memberid);
+
+alter table returns add constraint returns_fkey_accno foreign key(accno) references books(accno);
+
+
+
+
+--
+-- Dumping data for table publishers
+--
+
+insert into publishers values(191, "Al Khitab", "Abu Dhabi, UAE"),(192,"Forderingham Books", "Sheffield, England"),(193, "Sandro Books", "Lecce, Italy"),(194,"Kante Books", "Paris, France"),(195, "Guillermo Books","Santa Fe,  Mexico");
+
+--
+-- Dumping data for table books
+--
+
+
+ insert into books values(1,"War and Peache", "Leo Tolstoy",899.99,"lending","yes",193),(2,"Harry Potter and the Goblet of Fire","J.K Rowling", 699,'lending','yes',192),(3,"This is not Java", "S.C Harold",199,'reference','no',193),(4,"Can't Hurt Me", "David Goggins", 850,"lending","yes",194),(5,"Macbeth","William Shakespere", 759.99,"lending","no",195);
+ 
+--
+-- Dumping data for table members
+--
+
+
+insert into members values(101,"Harold Shaw", "Guernsey, Jersey, UK","staff"),(102, "Simon Minter" , "London","student"),(103,"Olijide Olatunji", "Abuja","staff"),(104,"Ethan Payne","East London,UK","student"),(105,"Josh Bradley","Luton, England","staff");
+
+--
+-- Dumping data for table issues
+--
+
+insert into issues values(501,101,1,'2025-01-15','2025-02-14'),(502,103,4,'2024-12-15','2025-01-05'),(503,104,5,'2025-02-10','2025-03-09'),(504,104,3,'2025-04-08','2025-05-13'),(505,105,5,'2023-12-10','2024-11-10');
+
+--
+-- Dumping data for table returns
+--
+
+insert into returns values(1001, 103,5,'2025-03-01',0),(1002,101,1,'2025-02-15',10),insert into returns values(1003, 105,5,'2025-03-01',1010),(1004,104,5,'2025-03-01',0),(1005,101,1,'2025-02-14',0);
+
+
+--
+-- SQl Query Statements
+--
