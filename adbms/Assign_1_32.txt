@@ -1,6 +1,6 @@
 -- 
 -- Roll No: 32
--- Name: Muhammed Fazil C
+-- Name: MUHAMMED FAZIL C
 -- Program: Assignment - I
 -- 
 
@@ -34,7 +34,7 @@ create table issues(issueid int AUTO_INCREMENT primary key, memberid int, accno 
 
 alter table issues add constraint issues_fkey_accno foreign key(accno) references books(accno);
 
- alter table issues add constraint issues_fkey_memberid foreign key(memberid) references members(memberid);
+alter table issues add constraint issues_fkey_memberid foreign key(memberid) references members(memberid);
 
 --
 -- Table structure for table returns
@@ -53,33 +53,34 @@ alter table returns add constraint returns_fkey_accno foreign key(accno) referen
 -- Dumping data for table publishers
 --
 
-insert into publishers values(191, "Al Khitab", "Abu Dhabi, UAE"),(192,"Forderingham Books", "Sheffield, England"),(193, "Sandro Books", "Lecce, Italy"),(194,"Kante Books", "Paris, France"),(195, "Guillermo Books","Santa Fe,  Mexico");
+insert into publishers values (201, "Penguin Random House", "New York, USA"),(202, "HarperCollins", "London, UK"),(203, "Simon & Schuster", "New York, USA"),(204, "Hachette Livre", "Paris, France"),(205, "Macmillan Publishers", "Berlin, Germany");
 
 --
 -- Dumping data for table books
 --
 
 
- insert into books values(1,"War and Peache", "Leo Tolstoy",899.99,"lending","yes",193),(2,"Harry Potter and the Goblet of Fire","J.K Rowling", 699,'lending','yes',192),(3,"This is not Java", "S.C Harold",199,'reference','no',193),(4,"Can't Hurt Me", "David Goggins", 850,"lending","yes",194),(5,"Macbeth","William Shakespere", 759.99,"lending","no",195);
+insert into books values (1, "The Great Gatsby", "F. Scott Fitzgerald", 299.99, "lending", "yes", 201),(2, "To Kill a Mockingbird", "Harper Lee", 399.50, "lending", "yes", 202),(3, "1984", "George Orwell", 450.00, "reference", "no", 203),(4, "Atomic Habits", "James Clear", 520.75, "lending", "yes", 204),(5, "Hamlet", "William Shakespeare", 379.99, "lending", "no", 205);
+
  
 --
 -- Dumping data for table members
 --
 
 
-insert into members values(101,"Harold Shaw", "Guernsey, Jersey, UK","staff"),(102, "Simon Minter" , "London","student"),(103,"Olijide Olatunji", "Abuja","staff"),(104,"Ethan Payne","East London,UK","student"),(105,"Josh Bradley","Luton, England","staff");
+insert into members values (101, "Alice Bennett", "New York, USA", "student"),(102, "Carlos Ramirez", "Madrid, Spain", "staff"),(103, "Lena Schmidt", "Berlin, Germany", "student"),(104, "Kenji Takahashi", "Osaka, Japan", "staff"),(105, "Fatima Noor", "Lahore, Pakistan", "student");
 
 --
 -- Dumping data for table issues
 --
 
-insert into issues values(501,101,1,'2025-01-15','2025-02-14'),(502,103,4,'2024-12-15','2025-01-05'),(503,104,5,'2025-02-10','2025-03-09'),(504,104,3,'2025-04-08','2025-05-13'),(505,105,5,'2023-12-10','2024-11-10');
+insert into issues values(601, 102, 2, '2025-03-01', '2025-03-31'),(602, 105, 4, '2025-03-10', '2025-04-09'),(603, 101, 3, '2025-03-15', '2025-04-14'),(604, 103, 1,'2025-03-20', '2025-04-19'),(605, 104, 2, '2025-03-25', '2025-04-24');
 
 --
 -- Dumping data for table returns
 --
 
-insert into returns values(1001, 103,5,'2025-03-01',0),(1002,101,1,'2025-02-15',10),insert into returns values(1003, 105,5,'2025-03-01',1010),(1004,104,5,'2025-03-01',0),(1005,101,1,'2025-02-14',0);
+insert into returns values(1001, 103,5,'2025-03-01',0),(1002,101,1,'2025-02-15',10),(1003, 105,5,'2025-03-01',1010),(1004,104,5,'2025-03-01',0),(1005,101,1,'2025-02-14',0);
 
 
 --
