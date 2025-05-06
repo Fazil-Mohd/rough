@@ -1,0 +1,334 @@
+departments:
+------------
++-----+------------------------+
+| dno | dname                  |
++-----+------------------------+
+|   1 | MCA                    |
+|   2 | CSE                    |
+|   3 | IT                     |
+|   4 | ECE                    |
+|   5 | Mechanical Engineering |
++-----+------------------------+
+
+students:
+---------
++-----+------------------+------+------+
+| id  | sname            | dno  | age  |
++-----+------------------+------+------+
+| 101 | Alice Smith      |    1 |   20 |
+| 102 | Bob Johnson      |    2 |   21 |
+| 103 | Charlie Brown    |    3 |   22 |
+| 104 | David White      |    4 |   23 |
+| 105 | Ansar            |    5 |   23 |
+| 106 | Eve Davis        |    2 |   24 |
+| 107 | Grace Hopper     |    1 |   24 |
+| 108 | Alan Turing      |    2 |   25 |
+| 109 | Ada Lovelace     |    3 |   26 |
+| 110 | George Boole     |    4 |   27 |
+| 111 | John von Neumann |    5 |   28 |
+| 112 | Claude Shannon   |    1 |   29 |
+| 113 | Dennis Ritchie   |    2 |   30 |
+| 114 | Ken Thompson     |    3 |   31 |
+| 115 | Larry Page       |    4 |   32 |
+| 116 | Sergey Brin      |    5 |   33 |
+----------------------------------------
+
+books:
+-----
++--------+------------------------------------------+---------------------+--------+
+| bookid | title                                    | author              | price  |
++--------+------------------------------------------+---------------------+--------+
+|      1 | The Catcher in the Rye                   | J.D. Salinger       |   9.99 |
+|      2 | To Kill a Mockingbird                    | Harper Lee          |  12.99 |
+|      3 | 1984                                     | George Orwell       |  14.99 |
+|      4 | Pride and Prejudice                      | Jane Austen         |  11.49 |
+|      5 | The Great Gatsby                         | F. Scott Fitzgerald |  10.99 |
+|      6 | Advanced Database Management             | NULL                | 650.00 |
+|      7 | The Hobbit                               | J.R.R. Tolkien      |  15.99 |
+|      8 | War and Peace                            | Leo Tolstoy         |  18.49 |
+|      9 | Moby Dick                                | George Orwell       |  13.99 |
+|     10 | Brave New World                          | Aldous Huxley       |  16.99 |
+|     11 | The Odyssey                              | Homer               |  12.49 |
+|     12 | Crime and Punishment                     | Fyodor Dostoevsky   |  14.49 |
+|     13 | The Brothers Karamazov                   | Fyodor Dostoevsky   |  17.99 |
+|     14 | The Divine Comedy                        | Dante Alighieri     |  19.99 |
+|     15 | Don Quixote                              | Miguel de Cervantes |  11.99 |
+|     16 | The Catcher in the Rye (Special Edition) | J.D. Salinger       |  13.99 |
++--------+------------------------------------------+---------------------+--------+
+
+bookissues:
+----------
++--------+-----------+------------+-------------+------+
+| bookid | studentid | issue_date | return_date | fine |
++--------+-----------+------------+-------------+------+
+|      1 |       101 | 2025-01-10 | 2025-01-15  | 0.00 |
+|      1 |       102 | 2025-02-12 | 2025-02-18  | 0.00 |
+|      1 |       103 | 2025-02-01 | 2025-02-07  | 0.00 |
+|      2 |       101 | 2025-02-10 | 2025-02-15  | 0.00 |
+|      2 |       104 | 2025-03-01 | 2025-03-07  | 0.00 |
+|      2 |       106 | 2025-03-15 | 2025-03-20  | 0.00 |
+|      3 |       103 | 2025-01-05 | 2025-01-12  | 0.00 |
+|      4 |       104 | 2025-03-01 | 2025-03-05  | 0.00 |
+|      5 |       105 | 2025-03-10 | 2025-03-15  | 0.00 |
+|      6 |       106 | 2025-03-17 | NULL        | 0.00 |
+|      7 |       107 | 2025-02-01 | NULL        | 0.00 |
+|      8 |       108 | 2025-01-15 | NULL        | 0.00 |
+|      9 |       109 | 2025-03-10 | NULL        | 0.00 |
+|     10 |       110 | 2025-03-20 | NULL        | 0.00 |
+|     11 |       111 | 2025-03-01 | 2025-03-05  | 0.00 |
+|     12 |       112 | 2025-03-01 | 2025-03-05  | 0.00 |
+--------------------------------------------------------
+
+Aggregate functions in mysql:
+-----------------------------
+
+1) min: return min value in that set
+select min(age) from students;
++----------+
+| min(age) |
++----------+
+|       20 |
++----------+
+
+2) max: 
+select max(age) from students;
++----------+
+| max(age) |
++----------+
+|       33 |
++----------+
+
+3) avg():
+elect avg(age) from students;
++----------+
+| avg(age) |
++----------+
+|  26.1250 |
++----------+
+
+4)sum():
+select sum(age) from students;
++----------+
+| sum(age) |
++----------+
+|      418 |
++----------+
+
+5) count():
+ignore the NULL values except count()
+
+ select count(age) from students;
++------------+
+| count(age) |
++------------+
+|         16 |
++------------+
+
+Questions:
+---------
+
+
+1) get total number of sudents
+
+ select count(*) from students;
++----------+
+| count(*) |
++----------+
+|       16 |
++----------+
+
+2) get total number of books
+select count(*) from books;
++----------+
+| count(*) |
++----------+
+|       16 |
++----------+
+
+3) find the average price of books;
+
+select avg(price) from books;
++------------+
+| avg(price) |
++------------+
+|  54.178125 |
++------------+
+
+4) find the most expensive and cheapest book
+
+ select max(price) as max_book, min(price) as min_book from books;
++----------+----------+
+| max_book | min_book |
++----------+----------+
+|   650.00 |     9.99 |
++----------+----------+
+
+5) count the total number of book issued
+ select count(distinct bookid) from bookissues;
++------------------------+
+| count(distinct bookid) |
++------------------------+
+|                     12 |
++------------------------+
+
+
+GRPUP BY clause:
+---------------
+The GROUP BY clause in MySQL is used to group rows that have the same values in specified columns into summary rows. 
+
+Questions:
+----------
+
+1) count number of students in each departments
+select count(*) from students group by dno;
++----------+
+| count(*) |
++----------+
+|        3 |
+|        4 |
+|        3 |
+|        3 |
+|        3 |
+------------
+
+2) count how many books each student has issued (student name, total number of books)
+ select students.sname, count(bookissues.bookid) as total_number_of_books from students join bookissues on students.id= bookissues.studentid group by students.sname;
++------------------+-----------------------+
+| sname            | total_number_of_books |
++------------------+-----------------------+
+| Alice Smith      |                     2 |
+| Bob Johnson      |                     1 |
+| Charlie Brown    |                     2 |
+| David White      |                     2 |
+| Ansar            |                     1 |
+| Eve Davis        |                     2 |
+| Grace Hopper     |                     1 |
+| Alan Turing      |                     1 |
+| Ada Lovelace     |                     1 |
+| George Boole     |                     1 |
+| John von Neumann |                     1 |
+| Claude Shannon   |                     1 |
++------------------+-----------------------+
+
+3) list the books with highest price
+select * from books where price=(select max(price) from books);
++--------+------------------------------+--------+--------+
+| bookid | title                        | author | price  |
++--------+------------------------------+--------+--------+
+|      6 | Advanced Database Management | ABC    | 650.00 |
++--------+------------------------------+--------+--------+
+
+4) Count How Many Books Each Student Has Issued:
+
+ select studentid,count(bookid) from bookissues group by studentid; 
++-----------+---------------+
+| studentid | count(bookid) |
++-----------+---------------+
+|       101 |             2 |
+|       102 |             1 |
+|       103 |             2 |
+|       104 |             2 |
+|       105 |             1 |
+|       106 |             2 |
+|       107 |             1 |
+|       108 |             1 |
+|       109 |             1 |
+|       110 |             1 |
+|       111 |             1 |
+|       112 |             1 |
++-----------+---------------+
+
+5)  Find the Average Book Price Per Author
+
+select author, avg(price) from books group by author;
++---------------------+------------+
+| author              | avg(price) |
++---------------------+------------+
+| J.D. Salinger       |  11.990000 |
+| Harper Lee          |  12.990000 |
+| George Orwell       |  14.490000 |
+| Jane Austen         |  11.490000 |
+| F. Scott Fitzgerald |  10.990000 |
+| ABC                 | 650.000000 |
+| J.R.R. Tolkien      |  15.990000 |
+| Leo Tolstoy         |  18.490000 |
+| Aldous Huxley       |  16.990000 |
+| Homer               |  12.490000 |
+| Fyodor Dostoevsky   |  16.240000 |
+| Dante Alighieri     |  19.990000 |
+| Miguel de Cervantes |  11.990000 |
++---------------------+------------+
+
+6) Find the Total Number of Books Issued Per Department
+SELECT departments.dname, COUNT(bookissues.bookid) AS total_books_issued
+FROM departments 
+JOIN students  ON departments.dno = students.dno
+JOIN bookissues ON students.id = bookissues.studentid
+GROUP BY departments.dno;
+
++------------------------+--------------------+
+| dname                  | total_books_issued |
++------------------------+--------------------+
+| MCA                    |                  4 |
+| CSE                    |                  4 |
+| IT                     |                  3 |
+| ECE                    |                  3 |
+| Mechanical Engineering |                  2 |
++------------------------+--------------------+
+
+7) Find the Number of Books Issued Per Day
+select issue_date , count(bookid) from bookissues group by issue_date;
++------------+---------------+
+| issue_date | count(bookid) |
++------------+---------------+
+| 2025-01-10 |             1 |
+| 2025-02-12 |             1 |
+| 2025-02-01 |             2 |
+| 2025-02-10 |             1 |
+| 2025-03-01 |             4 |
+| 2025-03-15 |             1 |
+| 2025-01-05 |             1 |
+| 2025-03-10 |             2 |
+| 2025-03-17 |             1 |
+| 2025-01-15 |             1 |
+| 2025-03-20 |             1 |
+------------------------------
+
+HAVING clause:
+-------------
+ used to filter records that come from a GROUP BY clause.
+
+Questions:
+
+1) find the departments with more than 3 sudents
+
+select dno,count(id) as total_students from students group by dno having count(id)>3;
++------+----------------+
+| dno  | total_students |
++------+----------------+
+|    2 |              4 |
++------+----------------+
+
+2) Find Students Who Have Issued More Than 2 Books:
+
+SELECT studentid, COUNT(bookid) AS books_issued
+FROM bookissues
+GROUP BY studentid
+HAVING COUNT(bookid) > 2;
+
+3) Find Authors Who Have Written More Than 3 Books:
+
+SELECT author, COUNT(bookid) AS books_written
+FROM books
+GROUP BY author
+HAVING COUNT(bookid) > 3;
+
+4) Find Departments That Have Issued At Least 10 Books:
+
+SELECT departments.dname, COUNT(bookissues.bookid) AS total_books_issued
+FROM departments 
+JOIN students s ON departments.dno = students.dno
+JOIN bookissues ON s.id = bookissues.studentid
+GROUP BY departments.dno
+HAVING COUNT(bookissues.bookid) >= 10;
+
