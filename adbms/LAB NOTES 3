@@ -1,0 +1,123 @@
+Trigger:
+-------
+
+
+
+create trigger trigrname
+<after|before> <insert|deletye|update> ON
+begin
+
+OLD  NEW
+
+
+end
+
+
+eg:
+create trigger checkprice before update on books begin if NEW.price > 1000 then print "update not possible" endif end
+
+
+
+1) create a function to display the price of a book
+
+DELIMITER $$
+
+CREATE FUNCTION get_price(a INT) RETURNS DECIMAL(10,2) DETERMINISTIC RETURN (SELECT price FROM books WHERE accno = a)$$
+ 
+DELIMITER ;
+
+
+SELECT get_price(6);
++--------------+
+| get_price(6) |
++--------------+
+|        45.99 |
++--------------+
+
+
+
+2) create a function to calculate and returns the total fine amount
+
+DELIMITER $$
+
+CREATE FUNCTION total_fine()
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+RETURN (SELECT SUM(fine) FROM returns)$$
+
+DELIMITER ;
+
+SELECT total_fine();
+
++---------------+
+| total_fines() |
++---------------+
+|         15.00 |
++---------------+
+
+
+
+3) create a trigger to set availability to know to NO when a book is issue
+
+DELIMITER $$
+
+CREATE TRIGGER set_availability_no
+AFTER INSERT ON issue
+FOR EACH ROW
+BEGIN
+    UPDATE books
+    SET availability = 'NO'
+    WHERE accno = NEW.accno;
+END$$
+
+DELIMITER ;
+
+
+
+check about NO:
+mysql> select * from books;
++-------+-----------------+-----------------+-------+-----------+--------------+-------------+
+| accno | title           | author          | price | type      | availability | publisherid |
++-------+-----------------+-----------------+-------+-----------+--------------+-------------+
+|     6 | learning sql    | alan beaulieu   | 45.99 | lending   | yes          |           3 |
+|     7 | data structures | mark weiss      | 55.50 | reference | yes          |           2 |
+|     8 | dbms concepts   | silberschatz    | 65.25 | lending   | yes          |           1 |
+|     9 | python basics   | eric matthes    | 42.75 | lending   | yes          |           5 |
+|    10 | java complete   | herbert schildt | 50.99 | lending   | yes          |           4 |
++-------+-----------------+-----------------+-------+-----------+--------------+-------------+
+
+mysql> select * from members;
++----------+-------+--------------+---------+
+| memberid | name  | address      | type    |
++----------+-------+--------------+---------+
+|        1 | alice | springfield  | student |
+|        2 | bob   | shelbyville  | staff   |
+|        3 | carol | capital city | student |
+|        4 | david | metropolis   | staff   |
+|        5 | eve   | gotham       | student |
++----------+-------+--------------+---------+
+
+mysql> insert into issues values(999,2,6,'2025-04-30','2025-05-13');
+
+mysql> select * from books;
++-------+-----------------+-----------------+-------+-----------+--------------+-------------+
+| accno | title           | author          | price | type      | availability | publisherid |
++-------+-----------------+-----------------+-------+-----------+--------------+-------------+
+|     6 | learning sql    | alan beaulieu   | 45.99 | lending   | no           |           3 |
+|     7 | data structures | mark weiss      | 55.50 | reference | yes          |           2 |
+|     8 | dbms concepts   | silberschatz    | 65.25 | lending   | yes          |           1 |
+|     9 | python basics   | eric matthes    | 42.75 | lending   | yes          |           5 |
+|    10 | java complete   | herbert schildt | 50.99 | lending   | yes          |           4 |
++-------+-----------------+-----------------+-------+-----------+--------------+-------------+
+
+mysql> select * from issues;
++---------+----------+-------+------------+------------+
+| issueid | memberid | accno | issuedate  | duedate    |
++---------+----------+-------+------------+------------+
+|      11 |        1 |     6 | 2025-03-01 | 2025-03-15 |
+|      12 |        2 |     7 | 2025-03-02 | 2025-03-16 |
+|      13 |        3 |     8 | 2025-03-05 | 2025-03-19 |
+|      14 |        4 |     9 | 2025-03-10 | 2025-03-24 |
+|      15 |        5 |    10 | 2025-03-12 | 2025-03-26 |
+|     999 |        2 |     6 | 2025-04-30 | 2025-05-13 |
++---------+----------+-------+------------+------------+
