@@ -1,0 +1,455 @@
+BOOKS TABLE:
+-----------
+select * from books;
++--------+------------------------+---------------+-------+
+| bookid | title                  | author        | price |
++--------+------------------------+---------------+-------+
+|      1 | The Catcher in the Rye | J.D. Salinger |  9.99 |
+|      2 | To Kill a Mockingbird  | Harper Lee    | 12.99 |
+|      3 | 1984                   | George Orwell | 14.99 |
+|      4 | Pride and Prejudice    | Jane Austen   | 11.49 |
++--------+------------------------+---------------+-------+
+
+
+STUDENTS TABLE:
+---------------
+ select * from students;
++-----+---------------+------+
+| id  | sname         | dno  |
++-----+---------------+------+
+| 101 | Alice Smith   |    1 |
+| 102 | Bob Johnson   |    2 |
+| 103 | Charlie Brown |    3 |
+| 104 | David White   |    4 |
+------------------------------
+
+
+DEPARTMENT table:
+------------------
+Select * from department;
++-----+------------------+
+| dno | name             |
++-----+------------------+
+|   1 | Computer Science |
+|   2 | Mathematics      |
+|   3 | Physics          |
+|   4 | Biology          |
+|   5 | BCA              |
++-----+------------------+
+
+
+BOOKISSUE table:
+---------------
+select * from bookissue;
++--------+-----------+------------+-------------+
+| bookid | studentid | issue_date | return_date |
++--------+-----------+------------+-------------+
+|      1 |       101 | 2025-03-01 | 2025-03-15  |
+|      2 |       102 | 2025-03-01 | 2025-03-15  |
+|      3 |       103 | 2025-03-02 | 2025-03-16  |
+|      4 |       104 | 2025-03-02 | 2025-03-16  |
+|      1 |       104 | 2025-03-03 | 2025-03-17  |
++--------+-----------+------------+-------------+
+
+
+
+Q1) list all books include(bookid,title,author) with students details, list studentid and student name
+
+A)
+ select books.bookid,books.title,books.author,students.id,students.sname from books,students,bookissue where books.bookid=bookissue.bookid and students.id=bookissue.studentid;
++--------+------------------------+---------------+-----+---------------+
+| bookid | title                  | author        | id  | sname         |
++--------+------------------------+---------------+-----+---------------+
+|      1 | The Catcher in the Rye | J.D. Salinger | 101 | Alice Smith   |
+|      1 | The Catcher in the Rye | J.D. Salinger | 104 | David White   |
+|      2 | To Kill a Mockingbird  | Harper Lee    | 102 | Bob Johnson   |
+|      3 | 1984                   | George Orwell | 103 | Charlie Brown |
+|      4 | Pride and Prejudice    | Jane Austen   | 104 | David White   |
++--------+------------------------+---------------+-----+---------------+
+
+
+Q2)list students(sid,name) who have issued book with thier department name
+A)
+select students.id,students.sname,department.name from students,department,bookissue where students.dno=department.dno and students.id=bookissue.studentid;
++-----+---------------+------------------+
+| id  | sname         | name             |
++-----+---------------+------------------+
+| 101 | Alice Smith   | Computer Science |
+| 102 | Bob Johnson   | Mathematics      |
+| 103 | Charlie Brown | Physics          |
+| 104 | David White   | Biology          |
+| 104 | David White   | Biology          |
++-----+---------------+------------------+
+
+
+Using distinct keyword:
+-----------------------
+add age field in student table having same age (David White , Ansar)
+
++-----+---------------+------+------+
+| id  | sname         | dno  | age  |
++-----+---------------+------+------+
+| 101 | Alice Smith   |    1 |   20 |
+| 102 | Bob Johnson   |    2 |   21 |
+| 103 | Charlie Brown |    3 |   22 |
+| 104 | David White   |    4 |   23 |
+| 105 | Ansar         |    5 |   23 |
++-----+---------------+------+------+
+
+Q3)for getting distinct age from studnets:
+A)select distinct age from students;
++------+
+| age  |
++------+
+|   20 |
+|   21 |
+|   22 |
+|   23 |
++------+
+
+Substring pattern matching: (LIKE)
+----------------------------------
+Q4)list student where name starts with 'A'
+A)
+select sname from students where sname like 'A%';
++-------------+
+| sname       |
++-------------+
+| Alice Smith |
+| Ansar       |
++-------------+
+
+Q4)list student where name ends with 'A'
+A)
+select sname from students where sname like '%n';
++---------------+
+| sname         |
++---------------+
+| Bob Johnson   |
+| Charlie Brown |
++---------------+
+
+Q5)start with c and ends with n
+A)
+select sname from students where sname like 'c%n';
++---------------+
+| sname         |
++---------------+
+| Charlie Brown |
++---------------+
+
+
+Q5)Get the names of students that are exactly 5 characters long
+A)
+select sname from students where sname like '_____';
++-------+
+| sname |
++-------+
+| Ansar |
+---------
+
+
+Arithmetic expression in mysql:
+------------------------------
+Q6)list all books with price increased by 10%(1.1)
+A)
+select bookid ,title,price,price*1.1 from books;
++--------+------------------------+-------+-----------+
+| bookid | title                  | price | price*1.1 |
++--------+------------------------+-------+-----------+
+|      1 | The Catcher in the Rye |  9.99 |    10.989 |
+|      2 | To Kill a Mockingbird  | 12.99 |    14.289 |
+|      3 | 1984                   | 14.99 |    16.489 |
+|      4 | Pride and Prejudice    | 11.49 |    12.639 |
++--------+------------------------+-------+-----------+
+
+mysql> select bookid ,title,price,price*1.1 as price_increment from books;
++--------+------------------------+-------+-----------------+
+| bookid | title                  | price | price_increment |
++--------+------------------------+-------+-----------------+
+|      1 | The Catcher in the Rye |  9.99 |          10.989 |
+|      2 | To Kill a Mockingbird  | 12.99 |          14.289 |
+|      3 | 1984                   | 14.99 |          16.489 |
+|      4 | Pride and Prejudice    | 11.49 |          12.639 |
++--------+------------------------+-------+-----------------+
+
+
+Using BETWEEN operator:
+-----------------------
+Q7) display all students whose age between 21 and 23
+A)
+ select * from students where age between 21 and 23;
++-----+---------------+------+------+
+| id  | sname         | dno  | age  |
++-----+---------------+------+------+
+| 102 | Bob Johnson   |    2 |   21 |
+| 103 | Charlie Brown |    3 |   22 |
+| 104 | David White   |    4 |   23 |
+| 105 | Ansar         |    5 |   23 |
++-----+---------------+------+------+
+
+IN operator:
+-----------
+
+select * from students where age in (21,22,23);
++-----+---------------+------+------+
+| id  | sname         | dno  | age  |
++-----+---------------+------+------+
+| 102 | Bob Johnson   |    2 |   21 |
+| 103 | Charlie Brown |    3 |   22 |
+| 104 | David White   |    4 |   23 |
+| 105 | Ansar         |    5 |   23 |
++-----+---------------+------+------+
+
+
+Nested Queries:
+---------------
+
+select * from students where dno=(select max(dno) from students);
++-----+-------+------+------+
+| id  | sname | dno  | age  |
++-----+-------+------+------+
+| 105 | Ansar |    5 |   23 |
++-----+-------+------+------+
+
+if more than 1 row returns ,use IN operator otherwise use = operator
+
+Q8)get list of students who have issued at least 1 book
+A)As normal:
+ select distinct id,sname from students,bookissue where students.id=bookissue.studentid;
++-----+---------------+
+| id  | sname         |
++-----+---------------+
+| 101 | Alice Smith   |
+| 102 | Bob Johnson   |
+| 103 | Charlie Brown |
+| 104 | David White   |  |
++-----+---------------+
+
+using nested queries:
+SELECT id, sname FROM students WHERE id IN (SELECT studentid FROM bookissue);
++-----+---------------+
+| id  | sname         |
++-----+---------------+
+| 101 | Alice Smith   |
+| 102 | Bob Johnson   |
+| 103 | Charlie Brown |
+| 104 | David White   |
+-----------------------
+
+Q9) get the list of books that have issued
+A) As noraml:
+select distinct books.bookid,books.title from books join bookissu
++--------+------------------------+
+| bookid | title                  |
++--------+------------------------+
+|      4 | Pride and Prejudice    |
+|      3 | 1984                   |
+|      2 | To Kill a Mockingbird  |
+|      1 | The Catcher in the Rye |
++--------+------------------------+
+
+
+using nested queries:
+select bookid,title from books where bookid in (select bookid
+from bookissue);
++--------+------------------------+
+| bookid | title                  |
++--------+------------------------+
+|      1 | The Catcher in the Rye |
+|      2 | To Kill a Mockingbird  |
+|      3 | 1984                   |
+|      4 | Pride and Prejudice    |
++--------+------------------------+
+
+
+Q10) get the list of books that never issue
+A)
+INSERT INTO books (bookid, title, author, price) VALUES (5, 'The Great Gatsby', 'F. Scott Fitzgerald', 10.99);
+
+
+SELECT bookid, title FROM books WHERE bookid NOT IN (SELECT bookid FROM bookissue);
++--------+------------------+
+| bookid | title            |
++--------+------------------+
+|      5 | The Great Gatsby |
+-----------------------------
+
+ 
+ORDERBY CLAUSE:
+---------------
+
+select bookid,title from books order by title;
++--------+------------------------+
+| bookid | title                  |
++--------+------------------------+
+|      3 | 1984                   |
+|      4 | Pride and Prejudice    |
+|      1 | The Catcher in the Rye |
+|      5 | The Great Gatsby       |
+|      2 | To Kill a Mockingbird  |
++--------+------------------------+
+
+
+select bookid,title from books order by title desc;
++--------+------------------------+
+| bookid | title                  |
++--------+------------------------+
+|      2 | To Kill a Mockingbird  |
+|      5 | The Great Gatsby       |
+|      1 | The Catcher in the Rye |
+|      4 | Pride and Prejudice    |
+|      3 | 1984                   |
++--------+------------------------+
+
+
+set operations:
+--------------
+
+Q11) 
+1) UNION:
+
+get a list of all students who have issued books and all students from mca department
+
+select students.id,students.sname from students join bookissue on students.id=bookissue.studentid union select students.id,students.sname from students join department on students.dno=department.dno where department.name='BCA';
++-----+---------------+
+| id  | sname         |
++-----+---------------+
+| 101 | Alice Smith   |
+| 102 | Bob Johnson   |
+| 103 | Charlie Brown |
+| 104 | David White   |
+| 105 | Ansar         |
++-----+---------------+
+
+2) UNION ALL:
+
+select students.id,students.sname from students join bookissue on students.id=bookissue.studentid union all select students.id,students.sname from students join department on students.dno=department.d
+no where department.name='BCA';
++-----+---------------+
+| id  | sname         |
++-----+---------------+
+| 101 | Alice Smith   |
+| 102 | Bob Johnson   |
+| 103 | Charlie Brown |
+| 104 | David White   |
+| 104 | David White   |
+| 105 | Ansar         |
++-----+---------------+
+
+
+
+JOIN:
+----
+1) INNER join: commom records in both tables
+
+2) LEFT join: first table and common records in both tables
+
+not issues student details:
+
+select * from books left outer join bookissue on books.bookid=bookissue.bookid where bookissue.bookid is NULL;
++--------+------------------+---------------------+-------+--------+-----------+------------+-------------+
+| bookid | title            | author              | price | bookid | studentid | issue_date | return_date |
++--------+------------------+---------------------+-------+--------+-----------+------------+-------------+
+|      5 | The Great Gatsby | F. Scott Fitzgerald | 10.99 |   NULL |      NULL | NULL       | NULL        |
++--------+------------------+---------------------+-------+--------+-----------+------------+-------------+
+
+
+3) OUTER join: 2nd table and commom records in both tables
+
+4) Full OUTER join: all records in both tables and all common records in both tables
+
+5)NATURAL join: it is an inner join
+
+Q1) list all books issued with student details using joint (inner join)
+
+ SELECT * from books inner join bookissue on books.bookid=bookissue.bookid;
++--------+------------------------+---------------+-------+--------+-----------+------------+-------------+
+| bookid | title                  | author        | price | bookid | studentid | issue_date | return_date |
++--------+------------------------+---------------+-------+--------+-----------+------------+-------------+
+|      1 | The Catcher in the Rye | J.D. Salinger |  9.99 |      1 |       101 | 2025-03-01 | 2025-03-15  |
+|      1 | The Catcher in the Rye | J.D. Salinger |  9.99 |      1 |       104 | 2025-03-03 | 2025-03-17  |
+|      2 | To Kill a Mockingbird  | Harper Lee    | 12.99 |      2 |       102 | 2025-03-01 | 2025-03-15  |
+|      3 | 1984                   | George Orwell | 14.99 |      3 |       103 | 2025-03-02 | 2025-03-16  |
+|      4 | Pride and Prejudice    | Jane Austen   | 11.49 |      4 |       104 | 2025-03-02 | 2025-03-16  |
++--------+------------------------+---------------+-------+--------+-----------+------------+-------------+
+
+
+Q2) list all books that have been issued, along with their details such as book title, author, price, and issue date.
+SELECT * from books left outer join bookissue on books.bookid=bookissue.bookid;
++--------+------------------------+---------------------+-------+--------+-----------+------------+-------------+
+| bookid | title                  | author              | price | bookid | studentid | issue_date | return_date |
++--------+------------------------+---------------------+-------+--------+-----------+------------+-------------+
+|      1 | The Catcher in the Rye | J.D. Salinger       |  9.99 |      1 |       101 | 2025-03-01 | 2025-03-15  |
+|      1 | The Catcher in the Rye | J.D. Salinger       |  9.99 |      1 |       104 | 2025-03-03 | 2025-03-17  |
+|      2 | To Kill a Mockingbird  | Harper Lee          | 12.99 |      2 |       102 | 2025-03-01 | 2025-03-15  |
+|      3 | 1984                   | George Orwell       | 14.99 |      3 |       103 | 2025-03-02 | 2025-03-16  |
+|      4 | Pride and Prejudice    | Jane Austen         | 11.49 |      4 |       104 | 2025-03-02 | 2025-03-16  |
+|      5 | The Great Gatsby       | F. Scott Fitzgerald | 10.99 |   NULL |      NULL | NULL       | NULL        |
++--------+------------------------+---------------------+-------+--------+-----------+------------+-------------+
+
+
+Q3)list students who have issued books along with thier departments (studentid, name, department name)
+
+select students.id, students.sname, department.name from students inner join bookissue on students.id=bookissue.studentid inner join department on  students.dno = department.dno;
++-----+---------------+------------------+
+| id  | sname         | name             |
++-----+---------------+------------------+
+| 101 | Alice Smith   | Computer Science |
+| 102 | Bob Johnson   | Mathematics      |
+| 103 | Charlie Brown | Physics          |
+| 104 | David White   | Biology          |
+| 104 | David White   | Biology          |
++-----+---------------+------------------+
+
+
+
+
+Q4)find books that have never been issued (title,author)
+
+ select title,author from books left outer join bookissue on books.bookid=bookissue.bookid where bookissue.bookid is NULL;
++------------------+---------------------+
+| title            | author              |
++------------------+---------------------+
+| The Great Gatsby | F. Scott Fitzgerald |
++------------------+---------------------+
+
+Q5) get student who have not issued any books(studentid, name)
+
+select students.id, students.sname from students left join bookissue on students.id=bookissue.studentid
+where bookissue.studentid is NUll;
++-----+-----------+
+| id  | sname     |
++-----+-----------+
+| 105 | Ansar     |
+| 106 | Eve Davis |
++-----+-----------+
+
+
+
+Q6)find students who have issued book but not returned yet (studentid, name, title, issued date, return date)
+
+select * from bookissue;
++--------+-----------+------------+-------------+
+| bookid | studentid | issue_date | return_date |
++--------+-----------+------------+-------------+
+|      1 |       101 | 2025-03-01 | 2025-03-15  |
+|      2 |       102 | 2025-03-01 | 2025-03-15  |
+|      3 |       103 | 2025-03-02 | 2025-03-16  |
+|      4 |       104 | 2025-03-02 | 2025-03-16  |
+|      1 |       104 | 2025-03-03 | 2025-03-17  |
++--------+-----------+------------+-------------+
+
+mysql> insert into bookissue values(4,102,"2025-10-10",NULL);
+
+mysql> select students.id,students.sname,books.title,bookissue.issue_date,bookissue.return_date from students inner join bookissue ON students.id = bookissue.studentid inner join books ON books.bookid = bookissue.bookid where bookissue.return_date is NUll;
++-----+-------------+---------------------+------------+-------------+
+| id  | sname       | title               | issue_date | return_date |
++-----+-------------+---------------------+------------+-------------+
+| 102 | Bob Johnson | Pride and Prejudice | 2025-10-10 | NULL        |
++-----+-------------+---------------------+------------+-------------+
+
+
+
+
+
