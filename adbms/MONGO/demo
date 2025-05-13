@@ -1,0 +1,202 @@
+[mca@localhost ~]$ mongodb
+bash: mongodb: command not found...
+Similar command is: 'mongod'
+[mca@localhost ~]$ mongo
+Enter your MongoDB username: 24mca32
+Enter your MongoDB password: 
+Current Mongosh Log ID:	6822ffa9a2ff1d5b5cd861df
+Connecting to:		mongodb://<credentials>@172.20.3.1:27017/24mca32_db?authSource=24mca32_db&directConnection=true&appName=mongosh+2.5.0
+Using MongoDB:		6.0.23
+Using Mongosh:		2.5.0
+mongosh 2.5.1 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+24mca32_db> db.createCollection("demo")
+{ ok: 1 }
+24mca32_db> show collections
+demo
+24mca32_db> db.createCollection("student")
+{ ok: 1 }
+24mca32_db> db.student.insertOne({rollno:1,name:"Anil",age:20})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6823007aa2ff1d5b5cd861e0')
+}
+24mca32_db> db.student.find()
+[
+  {
+    _id: ObjectId('6823007aa2ff1d5b5cd861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  }
+]
+24mca32_db> db.student.insertOne({rollno:2,name:"janu"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68230106a2ff1d5b5cd861e1')
+}
+24mca32_db> db.student.find()
+[
+  {
+    _id: ObjectId('6823007aa2ff1d5b5cd861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('68230106a2ff1d5b5cd861e1'),
+    rollno: 2,
+    name: 'janu'
+  }
+]
+24mca32_db> db.student.find({rollno:2})
+[
+  {
+    _id: ObjectId('68230106a2ff1d5b5cd861e1'),
+    rollno: 2,
+    name: 'janu'
+  }
+]
+24mca32_db> db.student.find({$or:[{rollno:1,age:20}]})
+[
+  {
+    _id: ObjectId('6823007aa2ff1d5b5cd861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  }
+]
+24mca32_db> db.student.find({},{rollno:1,name:})
+Uncaught:
+SyntaxError: Unexpected token (1:34)
+
+> 1 | db.student.find({},{rollno:1,name:})
+    |                                   ^
+  2 |
+
+24mca32_db> db.student.find({},{rollno:1,name:""})
+[
+  { _id: ObjectId('6823007aa2ff1d5b5cd861e0'), rollno: 1, name: '' },
+  { _id: ObjectId('68230106a2ff1d5b5cd861e1'), rollno: 2, name: '' }
+]
+24mca32_db> db.student.find({},{rollno:1,name:1})
+[
+  {
+    _id: ObjectId('6823007aa2ff1d5b5cd861e0'),
+    rollno: 1,
+    name: 'Anil'
+  },
+  {
+    _id: ObjectId('68230106a2ff1d5b5cd861e1'),
+    rollno: 2,
+    name: 'janu'
+  }
+]
+24mca32_db> db.student.find({},{rollno:2,name:2})
+[
+  {
+    _id: ObjectId('6823007aa2ff1d5b5cd861e0'),
+    rollno: 1,
+    name: 'Anil'
+  },
+  {
+    _id: ObjectId('68230106a2ff1d5b5cd861e1'),
+    rollno: 2,
+    name: 'janu'
+  }
+]
+24mca32_db> db.student.find({},{rollno:2,name:})
+Uncaught:
+SyntaxError: Unexpected token (1:34)
+
+> 1 | db.student.find({},{rollno:2,name:})
+    |                                   ^
+  2 |
+
+24mca32_db> db.student.find({},{rollno:2,name:""})
+[
+  { _id: ObjectId('6823007aa2ff1d5b5cd861e0'), rollno: 1, name: '' },
+  { _id: ObjectId('68230106a2ff1d5b5cd861e1'), rollno: 2, name: '' }
+]
+24mca32_db> db.student.find({},{rollno:2,name:0})
+MongoServerError[Location31254]: Cannot do exclusion on field name in inclusion projection
+24mca32_db> db.student.find({}, { rollno: 1, name: 0 }) // Includes rollno, excludes name
+... 
+MongoServerError[Location31254]: Cannot do exclusion on field name in inclusion projection
+24mca32_db> db.student.find({}, { rollno: 1, name: 0 })
+MongoServerError[Location31254]: Cannot do exclusion on field name in inclusion projection
+24mca32_db> db.student.find({}, { rollno: 2, name: 0 })
+MongoServerError[Location31254]: Cannot do exclusion on field name in inclusion projection
+24mca32_db> db.student.find({}, { rollno: 2, name: 1 })
+[
+  {
+    _id: ObjectId('6823007aa2ff1d5b5cd861e0'),
+    rollno: 1,
+    name: 'Anil'
+  },
+  {
+    _id: ObjectId('68230106a2ff1d5b5cd861e1'),
+    rollno: 2,
+    name: 'janu'
+  }
+]
+24mca32_db> db.student.find({}, { rollno: 0, name: 1 })
+MongoServerError[Location31253]: Cannot do inclusion on field name in exclusion projection
+24mca32_db> db.student.find({}, { rollno: 0 , name: 1 })
+MongoServerError[Location31253]: Cannot do inclusion on field name in exclusion projection
+24mca32_db> db.student.find({}, { rollno: 0, name: 1 })
+MongoServerError[Location31253]: Cannot do inclusion on field name in exclusion projection
+24mca32_db> db.student.find({}, { rollno: 1, name: 1 })
+[
+  {
+    _id: ObjectId('6823007aa2ff1d5b5cd861e0'),
+    rollno: 1,
+    name: 'Anil'
+  },
+  {
+    _id: ObjectId('68230106a2ff1d5b5cd861e1'),
+    rollno: 2,
+    name: 'janu'
+  }
+]
+24mca32_db> db.student.find({}, { rollno: 1, name: 1 }) 
+... db.student.find({}, { rollno: 0, name: 0 })
+... db.student.find({}, { rollno: 1, name: 1, _id: 0 })
+[ { rollno: 1, name: 'Anil' }, { rollno: 2, name: 'janu' } ]
+24mca32_db> db.student.find({}, { rollno: 1, name: 1 }) 
+[
+  {
+    _id: ObjectId('6823007aa2ff1d5b5cd861e0'),
+    rollno: 1,
+    name: 'Anil'
+  },
+  {
+    _id: ObjectId('68230106a2ff1d5b5cd861e1'),
+    rollno: 2,
+    name: 'janu'
+  }
+]
+24mca32_db> db.student.find({}, { rollno: 0, name: 0 })
+[
+  { _id: ObjectId('6823007aa2ff1d5b5cd861e0'), age: 20 },
+  { _id: ObjectId('68230106a2ff1d5b5cd861e1') }
+]
+24mca32_db> db.student.find({}, { rollno: 0, name: 0 })
+... 
+[
+  { _id: ObjectId('6823007aa2ff1d5b5cd861e0'), age: 20 },
+  { _id: ObjectId('68230106a2ff1d5b5cd861e1') }
+]
+24mca32_db> db.student.find({}, { rollno: 0, name: 0 })
+[
+  { _id: ObjectId('6823007aa2ff1d5b5cd861e0'), age: 20 },
+  { _id: ObjectId('68230106a2ff1d5b5cd861e1') }
+]
+24mca32_db> db.Student.find({},{rollno:1,name:1,_id:0})
+
+24mca32_db> db.Student.find({},{rollno:1,name:1,_id:0})
+
+24mca32_db> 
+
