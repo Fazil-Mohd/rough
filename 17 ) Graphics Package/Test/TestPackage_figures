@@ -1,4 +1,4 @@
-package MODULE1;
+package Test;
 import figures.*;
 import java.util.Scanner;
 
