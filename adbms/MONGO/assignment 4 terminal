@@ -1,0 +1,371 @@
+[mca@localhost ~]$ mongo
+Enter your MongoDB username: 24mca32
+Enter your MongoDB password: 
+Current Mongosh Log ID:	682458eed12f2db75bd861df
+Connecting to:		mongodb://<credentials>@172.20.3.1:27017/24mca32_db?authSource=24mca32_db&directConnection=true&appName=mongosh+2.5.0
+Using MongoDB:		6.0.23
+Using Mongosh:		2.5.0
+mongosh 2.5.1 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+24mca32_db> db.orders.insertOne({order_no:"1",year:2020,paid:"Y",cost:{price:30,currencycurrency:"INR"},items:[{pno:"P1",colors:["blue","black"],quantity:10}],delivery_days:5});
+{
+  acknowledged: true,
+  insertedId: ObjectId('6824591bd12f2db75bd861e0')
+}
+24mca32_db> db.orders.insertOne({order_no:"02",year:2020,paid:"Y",cost:{price:13,currency:"DLR"},items:[{pno:"P2",colors:"white",quantity:4,pno:"P3",colors:["white","black"],quantity:1}],delivery_days:4});
+{
+  acknowledged: true,
+  insertedId: ObjectId('68245ae1d12f2db75bd861e1')
+}
+24mca32_db> db.orders.insertOne({order_no:"03",year:2018,paid:"N",cost:{price:33,currency:"EUR"},items:[{pno:"P3",colors:["blue","black"],quantity:4}],delivery_days:4});
+{
+  acknowledged: true,
+  insertedId: ObjectId('68245b36d12f2db75bd861e2')
+}
+24mca32_db> db.orders.insertOne({order_no:"04",year:2017,paid:"Y",cost:{price:17,currency:"INR"},items:[{pno:"P2",colors:["pink","black"],quantity:14,pno:"P4",colors:"white",quantity:1}],delivery_days:2});
+{
+  acknowledged: true,
+  insertedId: ObjectId('68245ba4d12f2db75bd861e3')
+}
+24mca32_db> db.orders.insertOne({order_no:"05",year:2020,paid:"Y",cost:{price:19,currency:"INR"},items:[{pno:"P1",quantity:15}],delivery_days:3});
+{
+  acknowledged: true,
+  insertedId: ObjectId('68245c13d12f2db75bd861e4')
+}
+24mca32_db> show collection ("orders")
+MongoshInvalidInputError: [COMMON-10001] 'collection' is not a valid argument for "show".
+24mca32_db> db.order()
+TypeError: db.order is not a function
+24mca32_db> db.order.find()
+
+24mca32_db> db.orders.find()
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [ { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  },
+  {
+    _id: ObjectId('68245c13d12f2db75bd861e4'),
+    order_no: '05',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 19, currency: 'INR' },
+    items: [ { pno: 'P1', quantity: 15 } ],
+    delivery_days: 3
+  }
+]
+24mca32_db> db.orders.find({paid :"Y"})
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [ { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  },
+  {
+    _id: ObjectId('68245c13d12f2db75bd861e4'),
+    order_no: '05',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 19, currency: 'INR' },
+    items: [ { pno: 'P1', quantity: 15 } ],
+    delivery_days: 3
+  }
+]
+24mca32_db> db.orders.find({paid :"Y",year:{$lt:2019}})
+[
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  }
+]
+24mca32_db> db.orders.find({paid :"N",year:{$lt:2019}})
+[
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  }
+]
+24mca32_db> db.orders.find({$and :[ paid :"Y",year:{$lt:2019}]})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:29)
+
+> 1 | db.orders.find({$and :[ paid :"Y",year:{$lt:2019}]})
+    |                              ^
+  2 |
+
+24mca32_db> db.orders.find({$and:[{paid:"Y",year:{$lt:2019}}]})
+[
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  }
+]
+24mca32_db> db.orders.find({price :"INR"})
+
+24mca32_db> db.orders.find({currency :"INR"})
+
+24mca32_db> db.orders.find(currency :"INR")
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:24)
+
+> 1 | db.orders.find(currency :"INR")
+    |                         ^
+  2 |
+
+24mca32_db> db.orders.find({currency :"INR"})
+
+24mca32_db> 
+
+24mca32_db> db.orders.find({currency :"INR"})
+
+24mca32_db> db.orders.find({cost.currency :"INR"})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:20)
+
+> 1 | db.orders.find({cost.currency :"INR"})
+    |                     ^
+  2 |
+
+24mca32_db> db.orders.find({$or:[{paid:"N",year:{$lt:2019}}]})
+[
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  }
+]
+24mca32_db> db.orders.find({price:{$lt:18}})
+
+24mca32_db> db.orders.find({"cost.currency" :"INR"})
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  },
+  {
+    _id: ObjectId('68245c13d12f2db75bd861e4'),
+    order_no: '05',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 19, currency: 'INR' },
+    items: [ { pno: 'P1', quantity: 15 } ],
+    delivery_days: 3
+  }
+]
+24mca32_db> db.orders.find({"cost.currency" :"INR","cost.price":{$lt:18}})
+[
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  }
+]
+24mca32_db> db.orders.find({"items.pno" :"P2"})
+
+24mca32_db> 
+(To exit, press Ctrl+C again or Ctrl+D or type .exit)
+24mca32_db> db.orders.find({ "items.pno": "P2" })
+
+24mca32_db> db.orders.find()
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [ { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  },
+  {
+    _id: ObjectId('68245c13d12f2db75bd861e4'),
+    order_no: '05',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 19, currency: 'INR' },
+    items: [ { pno: 'P1', quantity: 15 } ],
+    delivery_days: 3
+  }
+]
+24mca32_db> db.orders.find({"items.pno" :"P3"})
+[
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [ { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  }
+]
+24mca32_db> db.orders.find({"items.quantity":{$lt:13}})
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [ { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  }
+]
+24mca32_db> 
+
