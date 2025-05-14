@@ -367,5 +367,435 @@ SyntaxError: Unexpected token, expected "," (1:20)
     delivery_days: 2
   }
 ]
-24mca32_db> 
+24mca32_db> db.orders.find()
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [ { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  },
+  {
+    _id: ObjectId('68245c13d12f2db75bd861e4'),
+    order_no: '05',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 19, currency: 'INR' },
+    items: [ { pno: 'P1', quantity: 15 } ],
+    delivery_days: 3
+  }
+]
+24mca32_db> db.orders.find({"items.quantity":{$lt:13}})
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [ { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  }
+]
+24mca32_db> db.orders.find({"items.quantity":{$lt:13}})
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [ { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  }
+]
+24mca32_db> db.orders.aggregate({$match:{paid:"Y"}})
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [ { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  },
+  {
+    _id: ObjectId('68245c13d12f2db75bd861e4'),
+    order_no: '05',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 19, currency: 'INR' },
+    items: [ { pno: 'P1', quantity: 15 } ],
+    delivery_days: 3
+  }
+]
+24mca32_db> db.orders.find({paid:"Y"},{order_no:1,year:1,_id:0}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:51)
 
+> 1 | db.orders.find({paid:"Y"},{order_no:1,year:1,_id:0}})
+    |                                                    ^
+  2 |
+
+24mca32_db> db.orders.find({paid:"Y"},{order_no:1,year:1,_id:0})
+[
+  { order_no: '1', year: 2020 },
+  { order_no: '02', year: 2020 },
+  { order_no: '04', year: 2017 },
+  { order_no: '05', year: 2020 }
+]
+24mca32_db> db.orders.aggregate({$match:{paid:"Y"}},{$project:{order_no:1,year:1,_id:0}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:76)
+
+> 1 | db.orders.aggregate({$match:{paid:"Y"}},{$project:{order_no:1,year:1,_id:0}}])
+    |                                                                             ^
+  2 |
+
+24mca32_db> db.orders.aggregate({$match:{paid:"Y"}},{$project:[{order_no:1,year:1,_id:0}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:76)
+
+> 1 | db.orders.aggregate({$match:{paid:"Y"}},{$project:[{order_no:1,year:1,_id:0}}])
+    |                                                                             ^
+  2 |
+
+24mca32_db> db.orders.aggregate({$match:{"items.quantity":{$lt:13}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:55)
+
+> 1 | db.orders.aggregate({$match:{"items.quantity":{$lt:13}})
+    |                                                        ^
+  2 |
+
+24mca32_db> db.orders.aggregate({$match:{"items.quantity":{$lt:13}}})
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [ { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  }
+]
+24mca32_db> db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:56)
+
+> 1 | db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}])
+    |                                                         ^
+  2 |
+
+24mca32_db> db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:56)
+
+> 1 | db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}])
+    |                                                         ^
+  2 |
+
+24mca32_db> db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:56)
+
+> 1 | db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}}])
+    |                                                         ^
+  2 |
+
+24mca32_db> db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:56)
+
+> 1 | db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}])
+    |                                                         ^
+  2 |
+
+24mca32_db> db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:56)
+
+> 1 | db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}])
+    |                                                         ^
+  2 |
+24mca32_db> db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}}])
+... 
+... 
+Uncaught:
+SyntaxError: Unexpected token (1:56)
+
+> 1 | db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}}])
+    |                                                         ^
+  2 |
+  3 |
+  4 |
+
+24mca32_db> db.orders.updateOne({order_no:"02" },{$push:{items:{pno:"P2",colors:"white",quantity:4}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:88)
+
+> 1 | db.orders.updateOne({order_no:"02" },{$push:{items:{pno:"P2",colors:"white",quantity:4}})
+    |                                                                                         ^
+  2 |
+
+24mca32_db> db.orders.updateOne({order_no:"02" },{$push:{items:{pno:"P2",colors:"white",quantity:4}}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+24mca32_db> db.orders.find()
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [
+      { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 },
+      { pno: 'P2', colors: 'white', quantity: 4 }
+    ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [ { pno: 'P4', colors: 'white', quantity: 1 } ],
+    delivery_days: 2
+  },
+  {
+    _id: ObjectId('68245c13d12f2db75bd861e4'),
+    order_no: '05',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 19, currency: 'INR' },
+    items: [ { pno: 'P1', quantity: 15 } ],
+    delivery_days: 3
+  }
+]
+24mca32_db> db.orders.updateOne({order_no:"02" },{$push:{items:{pno:"P2",colors:"white",24mca32_db> db.orders.updateOne({order_no:"04" },{$push:{items:{pno:"P2",colors:["pink","black"],quantity:4}}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+24mca32_db> db.orders.find()
+[
+  {
+    _id: ObjectId('6824591bd12f2db75bd861e0'),
+    order_no: '1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: [ { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 10 } ],
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('68245ae1d12f2db75bd861e1'),
+    order_no: '02',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: [
+      { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 },
+      { pno: 'P2', colors: 'white', quantity: 4 }
+    ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245b36d12f2db75bd861e2'),
+    order_no: '03',
+    year: 2018,
+    paid: 'N',
+    cost: { price: 33, currency: 'EUR' },
+    items: [ { pno: 'P3', colors: [ 'blue', 'black' ], quantity: 4 } ],
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('68245ba4d12f2db75bd861e3'),
+    order_no: '04',
+    year: 2017,
+    paid: 'Y',
+    cost: { price: 17, currency: 'INR' },
+    items: [
+      { pno: 'P4', colors: 'white', quantity: 1 },
+      { pno: 'P2', colors: [ 'pink', 'black' ], quantity: 4 }
+    ],
+    delivery_days: 2
+  },
+  {
+    _id: ObjectId('68245c13d12f2db75bd861e4'),
+    order_no: '05',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 19, currency: 'INR' },
+    items: [ { pno: 'P1', quantity: 15 } ],
+    delivery_days: 3
+  }
+]
+24mca32_db> db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:56)
+
+> 1 | db.orders.aggregate({$match:{"items.quantity":{$lt:13}},{$project:{order_no:1,{$filter:{input:"$items", as:"item",cond:{$lt:["$item.quantity":13]}}}}}}])
+    |                                                         ^
+  2 |
+
+24mca32_db> 
