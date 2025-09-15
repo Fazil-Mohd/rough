@@ -1,0 +1,112 @@
+<!-- meals/templates/meals/progress.html -->
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="mb-4">
+    <h2><i class="bi bi-graph-up"></i> 📈 Your Weekly Progress</h2>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body text-center">
+                <h3>{{ total_calories }}</h3>
+                <p class="mb-0">Total Calories</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body text-center">
+                <h3>{{ total_meals }}</h3>
+                <p class="mb-0">Meals Completed</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-body text-center">
+                <h3>{{ avg_daily_calories }}</h3>
+                <p class="mb-0">Avg Daily Intake</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body text-center">
+                <h3>{{ days_tracked }}</h3>
+                <p class="mb-0">Days Tracked</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5>Daily Calorie Intake</h5>
+    </div>
+    <div class="card-body">
+        <canvas id="calorieChart" height="100"></canvas>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Meals Per Day</h5>
+    </div>
+    <div class="card-body">
+        <canvas id="mealCountChart" height="100"></canvas>
+    </div>
+</div>
+
+<script>
+const ctx1 = document.getElementById('calorieChart').getContext('2d');
+new Chart(ctx1, {
+    type: 'bar',
+    data: {
+        labels: {{ dates_json|safe }},
+        datasets: [{
+            label: 'Calories Consumed',
+            data: {{ calories_json|safe }},
+            backgroundColor: '#28a745',
+            borderColor: '#218838',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Calories' } },
+            x: { title: { display: true, text: 'Date' } }
+        }
+    }
+});
+
+const ctx2 = document.getElementById('mealCountChart').getContext('2d');
+new Chart(ctx2, {
+    type: 'line',
+    data: {
+        labels: {{ dates_json|safe }},
+        datasets: [{
+            label: 'Meals Eaten',
+            data: {{ meal_counts_json|safe }},
+            backgroundColor: 'rgba(0,123,255,0.2)',
+            borderColor: '#007bff',
+            borderWidth: 3,
+            pointBackgroundColor: '#fff',
+            pointBorderColor: '#007bff',
+            fill: true,
+            tension: 0.3
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Number of Meals' } },
+            x: { title: { display: true, text: 'Date' } }
+        }
+    }
+});
+</script>
+
+{% endblock %}

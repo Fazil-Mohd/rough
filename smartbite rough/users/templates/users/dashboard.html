@@ -1,0 +1,41 @@
+<!-- users/templates/users/dashboard.html -->
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4>Welcome, {{ user.username }}!</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h5>Daily Goal: <span class="badge bg-success">{{ tdee }} kcal</span></h5>
+                    <div class="progress mt-2" style="height: 25px;">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: {{ progress_percent }}%">
+                            {{ calories_consumed }} / {{ tdee }} kcal ({{ progress_percent }}%)
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush mt-3">
+                    <li class="list-group-item"><strong>Goal:</strong> {{ profile.get_goal_display }}</li>
+                    <li class="list-group-item"><strong>Activity Level:</strong> {{ profile.get_activity_level_display }}</li>
+                    {% if profile.health_issues %}
+                    <li class="list-group-item"><strong>Health Notes:</strong> {{ profile.health_issues }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                <img src="https://via.placeholder.com/150?text=🥗" class="rounded-circle mb-3" width="100" alt="Healthy Eating">
+                <a href="{% url 'discover_meals' %}" class="btn btn-success btn-lg w-100 mb-2">🔍 Discover Meals</a>
+                <a href="{% url 'meal_plan' %}" class="btn btn-outline-primary btn-lg w-100">📋 View Meal Plan</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
